@@ -1,4 +1,5 @@
-package entities;
+package org.example.entities;
+
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ public class Turno {
     private String descripcion;
     private LocalDate fecha;
     private LocalTime hora;
-    private EstadoTurno estado;
+    private EstadoTurnos estado;
 
     @Column(unique = true)
     private String codigo;
@@ -25,7 +26,7 @@ public class Turno {
     public Turno() {
     }
 
-    public Turno(String descripcion, LocalDate fecha, EstadoTurno estado, String codigo) {
+    public Turno(String descripcion, LocalDate fecha, EstadoTurnos estado, String codigo) {
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.estado = estado;
