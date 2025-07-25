@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.example.entities.Ciudadano;
+import org.example.utils.ConfigJpa;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +16,6 @@ import java.io.IOException;
 
 @WebServlet("/ciudadano")
 public class CiudadanoServlet extends HttpServlet {
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("miUnidad");
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -24,7 +24,7 @@ public class CiudadanoServlet extends HttpServlet {
 
         Ciudadano producto = new Ciudadano(nombre,apellido);
 
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = ConfigJpa.getEntityManager();
         em.getTransaction().begin();
         em.persist(producto);
         em.getTransaction().commit();
