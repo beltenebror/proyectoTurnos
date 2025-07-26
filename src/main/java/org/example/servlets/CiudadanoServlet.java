@@ -4,7 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.example.entities.Ciudadano;
-import org.example.utils.ConfigJpa;
+import org.example.utils.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
