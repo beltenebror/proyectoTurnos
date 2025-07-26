@@ -30,13 +30,8 @@ public class CiudadanoServlet extends HttpServlet {
         em.getTransaction().commit();
 
 
-
-
-
         em.getTransaction().begin();
 
-
-        em.close();
         request.getRequestDispatcher("creado.jsp").forward(request,response);
 
     }
