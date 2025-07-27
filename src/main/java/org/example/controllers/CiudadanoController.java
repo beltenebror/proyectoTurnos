@@ -1,22 +1,27 @@
 package org.example.controllers;
 
+import jakarta.persistence.EntityManager;
 import org.example.entities.Ciudadano;
-import org.example.servlets.CiudadanoServlet;
+import org.example.utils.ConfigJpa;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class CiudadanoController extends CiudadanoServlet {
+public class CiudadanoController extends org.example.servlets.CiudadanoServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nombre = request.getParameter("nombre");
-        String apellidos = request.getParameter("apellido");
+        String apellidos = request.getParameter("apellidos");
 
-        Ciudadano ciudadano = new Ciudadano();
-        ciudadano.setNombre(nombre);
-        ciudadano.setApellidos(apellidos);
-        response.sendRedirect("creado.jsp");
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Apellidos: " + apellidos);
+
+        Ciudadano ciudadano = new Ciudadano(nombre,apellidos);
+        EntityManager em = ConfigJpa.getEntityManager();
+
+        request.getRequestDispatcher("creado.jsp").forward(request,response);
+
     }
 }
