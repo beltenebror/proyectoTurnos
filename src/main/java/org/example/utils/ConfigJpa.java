@@ -6,7 +6,10 @@ import jakarta.persistence.Persistence;
 
 public class ConfigJpa {
 
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("miUnidad");
+    private static final EntityManagerFactory emf =
+            Persistence.createEntityManagerFactory("miUnidad");
+
+    private ConfigJpa() {}
 
     public static EntityManager getEntityManager() {
         return emf.createEntityManager();
@@ -18,4 +21,3 @@ public class ConfigJpa {
         }
     }
 }
-
