@@ -26,9 +26,10 @@ public class Turno {
     public Turno() {
     }
 
-    public Turno(String descripcion, LocalDate fecha, EstadoTurnos estado, String codigo) {
+    public Turno(String descripcion, LocalDate fecha,LocalTime hora, EstadoTurnos estado, String codigo) {
         this.descripcion = descripcion;
         this.fecha = fecha;
+        this.hora = hora;
         this.estado = estado;
         this.codigo = generarCodigo();
     }
@@ -38,6 +39,4 @@ public class Turno {
         String horaFormateada = hora.format(DateTimeFormatter.ofPattern("HHmmss"));
         return "T"+year+"-"+horaFormateada;
     }
-
-
 }

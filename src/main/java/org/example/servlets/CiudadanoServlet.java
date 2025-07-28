@@ -1,43 +1,51 @@
 package org.example.servlets;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import org.example.entities.Ciudadano;
 import org.example.utils.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
-
 
 @WebServlet("/ciudadano")
 public class CiudadanoServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response)
+            throws ServletException, IOException {
 
-        String nombre = request.getParameter("nombre");
-        String apellido = request.getParameter("apellido");
+        String nombre    = request.getParameter("nombre");
+        String apellidos = request.getParameter("apellidos");
 
-        Ciudadano producto = new Ciudadano(nombre,apellido);
+        if (nombre == null || apellidos == null ||
+                nombre.trim().isEmpty() || apellidos.trim().isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                    "Nombre y apellidos son obligatorios.");
+            return;
+        }
+
+        Ciudadano ciudadano = new Ciudadano(nombre.trim(), apellidos.trim());
 
         EntityManager em = ConfigJpa.getEntityManager();
-        em.getTransaction().begin();
-        em.persist(producto);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.persist(ciudadano);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new ServletException("Error al guardar el ciudadano", e);
+        } finally {
+            em.close();
+        }
 
-
-
-
-
-        em.getTransaction().begin();
-
-
-        em.close();
-        request.getRequestDispatcher("creado.jsp").forward(request,response);
-
+        // Pasamos los datos al JSP
+        request.setAttribute("nombre", nombre);
+        request.setAttribute("apellidos", apellidos);
+        request.getRequestDispatcher("/WEB-INF/creado.jsp")
+                .forward(request, response);
     }
 }
+
