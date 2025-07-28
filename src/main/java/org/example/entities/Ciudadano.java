@@ -50,4 +50,20 @@ public class Ciudadano {
     public void setTurnos(List<Turno> turnos) {
         this.turnos = turnos;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public List<Turno> getTurnos() {
+        return turnos;
+    }
 }
