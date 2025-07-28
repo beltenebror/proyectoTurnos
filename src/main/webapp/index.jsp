@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -10,21 +9,25 @@
 
 <body>
 
-<form action="/proyectoTurnos/ciudadano" method="POST">
-    <h2>Crear del Ciudadano</h2>
+    <h2>Crear Ciudadano</h2>
+    <form action="/proyectoTurnos/ciudadano" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
 
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" required>
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required>
 
-    <label for="apellido">Apellido:</label>
-    <input type="text" id="apellido" name="apellido" required>
+        <button type="submit">Enviar</button>
+    </form>
 
-    <button type="submit">Enviar</button>
-</form>
-<!-- Botón para ir a AgregarTurno.jsp -->
-<button type="button" onclick="window.location.href='AgregarTurno.jsp'">
-    Ir a Agregar Turno
-</button>
+    <br>
+
+    <!-- Botón para ir al formulario de turnos -->
+    <button type="button" onclick="window.location.href='AgregarTurno.jsp'">
+        Ir a Agregar Turno
+    </button>
+
 </body>
-
 </html>
+
+
