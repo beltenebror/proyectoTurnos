@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.example.entities.*" %>
+<%@ page import="java.util.List" %>
 
 <html>
 <head>
@@ -13,12 +14,12 @@
     <select name="dia">
         <% for (int d = 1; d <= 31; d++){ %>
             <option value="<%= d %>"><%= d %></option>
-        <% }>%
+        <% } %>
     </select>
     <select name="mes">
         <% for (int m = 1; m <= 12; m++){ %>
         <option value="<%= m %>"><%= m %></option>
-            <% }>%
+            <% } %>
     </select>
     <select name="year">
         <% int a = 2025; %>

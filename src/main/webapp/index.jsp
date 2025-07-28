@@ -21,7 +21,10 @@
 
     <button type="submit">Enviar</button>
 </form>
-
+<!-- Botón para ir a AgregarTurno.jsp -->
+<button type="button" onclick="window.location.href='AgregarTurno.jsp'">
+    Ir a Agregar Turno
+</button>
 </body>
 
 </html>
