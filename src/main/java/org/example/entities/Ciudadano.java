@@ -51,19 +51,7 @@ public class Ciudadano {
         this.turnos = turnos;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public String getNombre() {
-        return nombre;
-    }
 
-    public String getApellido() {
-        return apellido;
-    }
 
-    public List<Turno> getTurnos() {
-        return turnos;
-    }
 }
