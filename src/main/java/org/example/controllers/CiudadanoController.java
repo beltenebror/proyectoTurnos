@@ -18,10 +18,9 @@ public class CiudadanoController extends org.example.servlets.CiudadanoServlet {
         System.out.println("Nombre: " + nombre);
         System.out.println("Apellidos: " + apellidos);
 
-        Ciudadano ciudadano = new Ciudadano(nombre,apellidos);
+        Ciudadano ciudadano = new Ciudadano(nombre, apellidos);
         EntityManager em = ConfigJpa.getEntityManager();
 
-        request.getRequestDispatcher("creado.jsp").forward(request,response);
-
+        request.getRequestDispatcher("/WEB-INF/creado.jsp").forward(request, response);
     }
 }
