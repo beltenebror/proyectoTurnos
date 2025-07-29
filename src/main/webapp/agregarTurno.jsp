@@ -58,6 +58,7 @@
   </style>
 </head>
 <body>
+<jsp:include page="menu.jsp" />
   <div class="overlay"></div>
   <div class="content">
     <div class="box">
@@ -86,7 +87,7 @@
           <%} }%>
 
         </select>
-        <label>descripcion</label>
+        <label>Descripción:</label>
                 <input type="text" name="descripcion" required>
         <button type="submit">Agregar Turno</button>
       </form>

@@ -1,4 +1,4 @@
-package org.example.controllers;
+package org.example.sePuedeBorrarCreo;
 
 import jakarta.persistence.EntityManager;
 import org.example.entities.Ciudadano;
@@ -21,6 +21,6 @@ public class CiudadanoController extends org.example.servlets.CiudadanoServlet {
         Ciudadano ciudadano = new Ciudadano(nombre, apellidos);
         EntityManager em = ConfigJpa.getEntityManager();
 
-        request.getRequestDispatcher("/WEB-INF/creado.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/clienteAgregado.jsp").forward(request, response);
     }
 }
