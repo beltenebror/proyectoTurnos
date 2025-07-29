@@ -1,6 +1,5 @@
 package org.example.servlets;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,6 +45,7 @@ public class AgregarTurnoServlet extends HttpServlet {
         String horaStr   = request.getParameter("hora");     // "HH:mm"
         String estadoStr = request.getParameter("estado");   // "En espera" o "Atendido"
         String idCiudadano = request.getParameter("idCiudadano");
+        String descripcion = request.getParameter("descripcion");
 
         // 1. Parseo de fecha (ISO y fallback corto)
         LocalDate fecha;
@@ -87,6 +87,8 @@ public class AgregarTurnoServlet extends HttpServlet {
             turno.setHora(hora);
             turno.setEstado(estadoEnum);
             turno.setCiudadano(ciudadano);
+            turno.setCodigo(turno.generarCodigo());
+            turno.setDescripcion(descripcion);
             em.persist(turno);
 
             em.getTransaction().commit();

@@ -86,7 +86,8 @@
           <%} }%>
 
         </select>
-
+        <label>descripcion</label>
+                <input type="text" name="descripcion" required>
         <button type="submit">Agregar Turno</button>
       </form>
     </div>

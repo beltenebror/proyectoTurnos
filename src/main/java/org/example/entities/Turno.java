@@ -34,7 +34,7 @@ public class Turno {
         this.codigo = generarCodigo();
     }
 
-    private String generarCodigo() {
+    public String generarCodigo() {
         String year = String.valueOf(fecha.getYear());
         String horaFormateada = hora.format(DateTimeFormatter.ofPattern("HHmmss"));
         return "T"+year+"-"+horaFormateada;
