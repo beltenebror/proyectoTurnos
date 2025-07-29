@@ -7,6 +7,7 @@
     <title>Agregar Turno</title>
 </head>
 <body>
+<jsp:include page="menu.jsp" />
 <h2>Nuevo turno</h2>
 <form action="agregarTurno" method="post">
     Descripción:<input type="text" name="descripcion" required><br>
@@ -55,7 +56,8 @@
        <!-- Iterar los nombres de los ciudadanos-->
         <%   List<Ciudadano> listaCiudadanos = (List<Ciudadano>) request.getAttribute("listado");
         for (Ciudadano ciudadano : listaCiudadanos) { %>
-        <option value="<%= ciudadano.getId() %>"> <%= ciudadano.getNombre() %>  <%= ciudadano.getApellido() %> </option>
+        <option value="<%= ciudadano.getId() %>"> <%= ciudadano.getNombre() %> <%= ciudadano.getApellidos() %>
+ </option>
         <% } %>
     </select>
     <input type="submit" value="Agregar Turno">

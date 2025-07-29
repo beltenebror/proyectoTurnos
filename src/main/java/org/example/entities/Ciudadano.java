@@ -50,8 +50,4 @@ public class Ciudadano {
     public void setTurnos(List<Turno> turnos) {
         this.turnos = turnos;
     }
-
-
-
-
 }

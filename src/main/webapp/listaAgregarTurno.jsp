@@ -4,8 +4,10 @@
 <html>
 <head>
     <title>Turnos</title>
+
 </head>
 <body>
+<jsp:include page="menu.jsp" />
 <h2>Agregar turno</h2>
 <table>
     <tr>

@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Inicio – Crear Ciudadano</title>
+
   <style>
     /* Reset básico y 100% de altura */
     html, body {
@@ -92,6 +93,7 @@
   </style>
 </head>
 <body>
+<jsp:include page="menu.jsp" />
   <div class="overlay"></div>
 
   <div class="content">
@@ -115,14 +117,3 @@
   </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
