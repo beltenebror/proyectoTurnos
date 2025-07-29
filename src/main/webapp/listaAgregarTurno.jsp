@@ -1,39 +1,40 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.example.entities.*" %>
+<%@ page import="org.example.entities.Turno" %>
 
 <html>
 <head>
-    <title>Turnos</title>
-
+    <title>Turno agregado</title>
 </head>
 <body>
 <jsp:include page="menu.jsp" />
-<h2>Agregar turno</h2>
-<table>
+<h2>Turno agregado correctamente</h2>
+<table border="1">
     <tr>
-        <th>Codigo</th>
-        <th>Descripcion</th>
+        <th>Código</th>
+        <th>Descripción</th>
         <th>Fecha</th>
         <th>Hora</th>
         <th>Estado</th>
         <th>Ciudadano</th>
     </tr>
     <%
-    List<Turno> turnos =(List<Turno>) request.getAttribute("turnos");
-    if(turnos != null){
-    for(Turno t : turnos)
+        Turno turno = (Turno) request.getAttribute("turno");
+        if (turno != null) {
     %>
     <tr>
-        <td><%= t.getCodigo() %></td>
-        <td><%= t.getDescripcion() %></td>
-        <td><%= t.getFecha() %></td>
-        <td><%= t.getHora() %></td>
-        <td><%= t.getEstado() %></td>
-        <td><%= t.getCiudadano().getNombre() %> <% t.getCiudadano.getApellido()  %></td>
+        <td><%= turno.getCodigo() %></td>
+        <td><%= turno.getDescripcion() %></td>
+        <td><%= turno.getFecha() %></td>
+        <td><%= turno.getHora() %></td>
+        <td><%= turno.getEstado() %></td>
+        <td><%= turno.getCiudadano().getNombre() %> <%= turno.getCiudadano().getApellidos() %></td>
     </tr>
     <%
+        } else {
+    %>
+    <tr><td colspan="6">No se pudo cargar el turno.</td></tr>
+    <%
         }
-            }
     %>
 </table><br>
 </body>

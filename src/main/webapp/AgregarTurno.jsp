@@ -1,66 +1,83 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.example.entities.*" %>
-<%@ page import="java.util.List" %>
-
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Agregar Turno</title>
+  <meta charset="UTF-8">
+  <title>Agregar Turno</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%; font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-image: url("<%= request.getContextPath() %>/imagenes/recepcion-hospital.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+    }
+
+    .overlay {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+    }
+
+    .content {
+      position: relative; z-index: 1;
+      display: flex; justify-content: center;
+      align-items: center; height: 100%;
+    }
+
+    .box {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px; border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      max-width: 400px; width: 100%;
+      text-align: center;
+    }
+
+    .box h2 { margin-top: 0; color: #333; }
+    .box label, .box select, .box input {
+      display: block; margin: 10px auto;
+      font-size: 1em; width: 80%;
+    }
+
+    .box button {
+      margin-top: 1em;
+      padding: 10px 20px;
+      font-size: 1em; background-color: #0066cc;
+      color: white; border: none; border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-<jsp:include page="menu.jsp" />
-<h2>Nuevo turno</h2>
-<form action="agregarTurno" method="post">
-    Descripción:<input type="text" name="descripcion" required><br>
-    Fecha:
-    <select name="dia">
-        <% for (int d = 1; d <= 31; d++){ %>
-            <option value="<%= d %>"><%= d %></option>
-        <% } %>
-    </select>
-    <select name="mes">
-        <% for (int m = 1; m <= 12; m++){ %>
-        <option value="<%= m %>"><%= m %></option>
-            <% } %>
-    </select>
-    <select name="year">
-        <% int a = 2025; %>
-        <option value="<%= a %>"><%= a %></option>
-    </select><br>
+  <div class="overlay"></div>
+  <div class="content">
+    <div class="box">
+      <h2>Nuevo turno</h2>
+      <form action="agregarTurno" method="post">
+        <label>Fecha:</label>
+        <input type="date" name="fecha" required>
 
-    <!-- <input type="date" name="fecha" required><br> -->
-   Hora:
-    <select name="hora">
-        <% for (int h=8; h<=14; h++){
-            for(int m = 0; m <60; m+=30){
-        String hh = (h < 10 ? "0" : "") + h;
-        String mm = (m == 0 ? "00" : String.valueOf(m));
-        String hora = hh + ":" + mm;
-        %>
-        <option value="<%= hora %>"><%= hora %></option>
-        <%  }
-                } %>
-    </select><br>
+        <label>Hora:</label>
+        <input type="time" name="hora" required>
 
-    <!--<input type="time" name="hora" required><br> -->
+        <label>Estado:</label>
+        <select name="estado">
+          <option value="ESPERA">En espera</option>
+          <option value="ATENDIDO">Atendido</option>
+        </select>
 
-   Estado:
-   <select name="estado" required>
-       <option value="ESPERA"> En espera</option>
-       <option value="ATENDIDO"> Ya atendido</option>
-   </select><br>
+        <label>Nombre del ciudadano:</label>
+        <input type="text" name="nombre" required>
 
-   <label for="ciudadano">Nombre</label>
-   <select name="ciudadanoId" id="ciudadano" required>
-       <option value="" disabled selected>Seleccione una opción</option>
-
-       <!-- Iterar los nombres de los ciudadanos-->
-        <%   List<Ciudadano> listaCiudadanos = (List<Ciudadano>) request.getAttribute("listado");
-        for (Ciudadano ciudadano : listaCiudadanos) { %>
-        <option value="<%= ciudadano.getId() %>"> <%= ciudadano.getNombre() %> <%= ciudadano.getApellidos() %>
- </option>
-        <% } %>
-    </select>
-    <input type="submit" value="Agregar Turno">
-</form>
+        <button type="submit">Agregar Turno</button>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
