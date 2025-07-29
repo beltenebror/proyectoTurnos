@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="org.example.entities.Ciudadano" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,8 +75,17 @@
           <option value="ATENDIDO">Atendido</option>
         </select>
 
-        <label>Nombre del ciudadano:</label>
-        <input type="text" name="nombre" required>
+        <label>Elige el ciudadano:</label>
+        <select name="idCiudadano">
+        <%
+        List<Ciudadano> ciudadanos = (List<Ciudadano>) request.getAttribute("listado");
+        if(ciudadanos != null){
+          for(Ciudadano ciudadano : ciudadanos){
+        %>
+          <option value="<%=ciudadano.getId()%>"><%= ciudadano.getNombre() %> <%= ciudadano.getApellidos()%></option>
+          <%} }%>
+
+        </select>
 
         <button type="submit">Agregar Turno</button>
       </form>

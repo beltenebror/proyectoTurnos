@@ -45,7 +45,7 @@ public class AgregarTurnoServlet extends HttpServlet {
         String fechaStr  = request.getParameter("fecha");    // "yyyy-MM-dd"
         String horaStr   = request.getParameter("hora");     // "HH:mm"
         String estadoStr = request.getParameter("estado");   // "En espera" o "Atendido"
-        String nombreCit = request.getParameter("nombre");
+        String idCiudadano = request.getParameter("idCiudadano");
 
         // 1. Parseo de fecha (ISO y fallback corto)
         LocalDate fecha;
@@ -79,9 +79,8 @@ public class AgregarTurnoServlet extends HttpServlet {
         try {
             em.getTransaction().begin();
 
-            Ciudadano ciudadano = new Ciudadano();
-            ciudadano.setNombre(nombreCit);
-            em.persist(ciudadano);
+            Ciudadano ciudadano = em.createQuery("SELECT c FROM Ciudadano c WHERE c.id="+idCiudadano, Ciudadano.class).getSingleResult();
+
 
             Turno turno = new Turno();
             turno.setFecha(fecha);
