@@ -2,7 +2,7 @@ package org.example.controllers;
 
 import jakarta.persistence.EntityManager;
 import org.example.entities.Ciudadano;
-import org.example.utils.ConfigJpa;
+import org.example.utils.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
