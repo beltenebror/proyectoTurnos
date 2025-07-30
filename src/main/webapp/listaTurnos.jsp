@@ -8,7 +8,8 @@
 </head>
 <body>
 <jsp:include page="menu.jsp" />
-<h1>Mostrando todos los turnos</h1>
+<% String mostrando = (String) request.getAttribute("mostrando");%>
+<h1>Mostrando <%= mostrando %></h1>
 
 
 
@@ -42,6 +43,80 @@
         <% } %>
 
     </table>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Filtrar Turnos</title>
+    <style>
+        body {
+          font-family: 'Segoe UI', sans-serif;
+          background: #f9f9f9;
+          padding: 40px;
+          display: flex;
+          justify-content: center;
+        }
+        form {
+          background: #ffffff;
+          padding: 20px 30px;
+          border-radius: 10px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+          max-width: 500px;
+          width: 100%;
+        }
+        h2 {
+          margin-top: 0;
+          text-align: center;
+        }
+        label {
+          display: block;
+          margin-top: 15px;
+          font-weight: bold;
+        }
+        input[type="date"],
+        select {
+          width: 100%;
+          padding: 8px;
+          margin-top: 5px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
+        button {
+          margin-top: 20px;
+          background-color: #6c63ff;
+          color: white;
+          padding: 10px 15px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          width: 100%;
+        }
+        button:hover {
+          background-color: #574edc;
+        }
+    </style>
+</head>
+<body>
+
+<form action="filtrarTurnos" method="get">
+    <h2>Filtrar Turnos</h2>
+
+    <label for="estado">Estado:</label>
+    <select name="estado" id="estado">
+        <option value="">-- Todos --</option>
+        <option value="ESPERA">En espera</option>
+        <option value="ATENDIDO">Ya atendido</option>
+    </select>
+
+    <label for="fechaInicio">Fecha de inicio:</label>
+    <input type="date" name="fechaInicio" id="fechaInicio">
+
+    <label for="fechaFin">Fecha de fin:</label>
+    <input type="date" name="fechaFin" id="fechaFin">
+
+    <button type="submit">Aplicar Filtros</button>
+</form>
 
 </body>
 </html>

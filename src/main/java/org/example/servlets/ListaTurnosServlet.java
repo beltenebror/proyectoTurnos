@@ -25,7 +25,9 @@ public class ListaTurnosServlet extends HttpServlet {
 
         // Consulta sin filtros: obtener todos los turnos
         List<Turno> listaTurnos = em.createQuery("FROM Turno", Turno.class).getResultList();
+        String mostrando = "todos los turnos";
 
+        req.setAttribute("mostrando", mostrando);
         req.setAttribute("listaTurnos", listaTurnos);
         em.close();
 
