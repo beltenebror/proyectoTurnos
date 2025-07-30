@@ -45,7 +45,7 @@ public class FiltrarTurnosServlet extends HttpServlet {
                 ? LocalDate.parse(fechaFinRecibida)
                 : null;
 
-            // Filtrado con Streams para cumplir requisito de usar al menos una vez programación funcional
+            // Filtrado
         List<Turno> turnosFiltrados = listaTurnos.stream()
                 .filter(turno -> estadoFiltro == null || turno.getEstado() == estadoFiltro)
                 .filter(turno -> fechaInicio == null || !turno.getFecha().isBefore(fechaInicio))
