@@ -20,6 +20,7 @@ import org.example.entities.Turno;
 import org.example.entities.Ciudadano;
 import org.example.entities.EstadoTurnos;
 
+
 @WebServlet("/agregarTurno")
 public class AgregarTurnoServlet extends HttpServlet {
 
@@ -40,7 +41,8 @@ public class AgregarTurnoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String fechaStr  = request.getParameter("fecha");    // "yyyy-MM-dd"
         String horaStr   = request.getParameter("hora");     // "HH:mm"
         String estadoStr = request.getParameter("estado");   // "En espera" o "Atendido"
