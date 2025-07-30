@@ -6,7 +6,7 @@
     <title>Turno actualizado</title>
 </head>
 <body>
-<jsp:include page="menu.jsp" />
+<jsp:include page="partials/menu.jsp" />
 <h2>Turno atendido y actualizado correctamente</h2>
 <table border="1">
     <tr>

@@ -72,7 +72,7 @@
   </style>
 </head>
 <body>
-<jsp:include page="menu.jsp" />
+<jsp:include page="partials/menu.jsp" />
   <div class="overlay"></div>
   <div class="content">
     <div class="box">

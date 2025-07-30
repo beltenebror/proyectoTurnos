@@ -29,7 +29,7 @@ public class CiudadanoServlet extends HttpServlet {
 
         Ciudadano ciudadano = new Ciudadano(nombre.trim(), apellidos.trim());
 
-        EntityManager em = ConfigJpa.getEntityManager();
+        EntityManager em = ConfigJPA.getEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(ciudadano);

@@ -8,7 +8,7 @@ public class TurnoJPA {
 
     // Añadimos los Turnos
     public void agregarTurno(Turno turno){
-        EntityManager em = ConfigJpa.getEntityManager();
+        EntityManager em = ConfigJPA.getEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(turno);

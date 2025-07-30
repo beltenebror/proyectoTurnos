@@ -8,7 +8,7 @@
     <title>Lista turnos</title>
 </head>
 <body>
-<jsp:include page="menu.jsp" />
+<jsp:include page="partials/menu.jsp" />
 <% String mostrando = (String) request.getAttribute("mostrando");%>
 <h1>Mostrando <%= mostrando %></h1>
 
