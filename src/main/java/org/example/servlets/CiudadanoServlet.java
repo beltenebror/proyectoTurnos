@@ -44,7 +44,7 @@ public class CiudadanoServlet extends HttpServlet {
         // Pasamos los datos al JSP
         request.setAttribute("nombre", nombre);
         request.setAttribute("apellidos", apellidos);
-        request.getRequestDispatcher("creado.jsp")
+        request.getRequestDispatcher("clienteAgregado.jsp")
                 .forward(request, response);
     }
 }

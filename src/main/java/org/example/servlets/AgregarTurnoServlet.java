@@ -96,7 +96,7 @@ public class AgregarTurnoServlet extends HttpServlet {
             em.getTransaction().commit();
 
             request.setAttribute("turno", turno);
-            request.getRequestDispatcher("listaAgregarTurno.jsp").forward(request, response);
+            request.getRequestDispatcher("turnoAgregado.jsp").forward(request, response);
 
         } catch (Exception e) {
             if (em.getTransaction().isActive()) em.getTransaction().rollback();

@@ -1,8 +1,9 @@
 package org.example.servlets;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.*;
-import org.example.entities.Ciudadano;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import org.example.entities.Turno;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,19 +13,29 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/formularioTurno")
-public class ServletFormularioTurno extends HttpServlet {
 
+@WebServlet("/listaTurnos")
+
+public class ListaTurnosServlet extends HttpServlet {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("miUnidad");
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         EntityManager em = emf.createEntityManager();
 
-        List<Ciudadano> listaCiudadanos = em.createQuery("SELECT c FROM Ciudadano c", Ciudadano.class).getResultList();
+        // Consulta sin filtros: obtener todos los turnos
+        List<Turno> listaTurnos = em.createQuery("FROM Turno", Turno.class).getResultList();
+        String mostrando = "todos los turnos";
 
-        req.setAttribute("listado", listaCiudadanos);
-        req.getRequestDispatcher("agregarTurno.jsp").forward(req, res);
+        req.setAttribute("mostrando", mostrando);
+        req.setAttribute("listaTurnos", listaTurnos);
+        em.close();
+
+        req.getRequestDispatcher("listaTurnos.jsp").forward(req, res);
+
     }
+
+
+
 
 }

@@ -1,4 +1,4 @@
-package org.example.servlets;
+package org.example.sePuedeBorrarCreo;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
