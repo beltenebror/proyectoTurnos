@@ -1,47 +1,50 @@
 package org.example.servlets;
 
-import jakarta.persistence.*;
-import org.example.entities.EstadoTurnos;
 import org.example.entities.Turno;
-import org.example.utils.*;
-
+import org.example.utils.TurnoJPA;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet("/actualizarEstado")
-
 public class ActualizarEstadoServlet extends HttpServlet {
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("miUnidad");
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        EntityManager em = emf.createEntityManager();
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response)
+            throws ServletException, IOException {
 
-        String idTurno  = req.getParameter("idTurno");
+        String idStr = request.getParameter("idTurno");
 
-        // codigo anterior a JPA pendiente de borrar
-       /* em.getTransaction().begin();
-        Turno turnoActualizar = em.find(Turno.class, idTurno);
-        turnoActualizar.setEstado(EstadoTurnos.ATENDIDO);
-        em.persist(turnoActualizar);
-        em.getTransaction().commit();
-        em.close();*/
+        if (idStr == null || idStr.trim().isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID de turno no proporcionado.");
+            return;
+        }
+
+        Long idTurno;
+        try {
+            idTurno = Long.parseLong(idStr);
+        } catch (NumberFormatException e) {
+            throw new ServletException("ID de turno inválido", e);
+        }
 
         TurnoJPA turnoJPA = new TurnoJPA();
-        Turno turnoActualizar = turnoJPA.atenderTurno(idTurno);
+        Turno turnoActualizado;
+        try {
+            turnoActualizado = turnoJPA.atenderTurno(idTurno);
+        } catch (Exception e) {
+            throw new ServletException("No se pudo actualizar el estado del turno", e);
+        }
 
+        if (turnoActualizado == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Turno no encontrado.");
+            return;
+        }
 
-        req.setAttribute("turnoActualizar", turnoActualizar);
-        req.getRequestDispatcher("turnoActualizado.jsp").forward(req, res);
-
+        request.setAttribute("turnoActualizar", turnoActualizado);
+        request.getRequestDispatcher("turnoActualizado.jsp").forward(request, response);
     }
-
-
-
-
 }
+

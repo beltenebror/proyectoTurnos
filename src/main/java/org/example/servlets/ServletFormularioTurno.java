@@ -1,14 +1,13 @@
 package org.example.servlets;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.*;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import org.example.entities.Ciudadano;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -20,11 +19,8 @@ public class ServletFormularioTurno extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         EntityManager em = emf.createEntityManager();
-
         List<Ciudadano> listaCiudadanos = em.createQuery("SELECT c FROM Ciudadano c", Ciudadano.class).getResultList();
-
-        req.setAttribute("listado", listaCiudadanos);
+        req.setAttribute("ciudadanos", listaCiudadanos);
         req.getRequestDispatcher("agregarTurno.jsp").forward(req, res);
     }
-
 }

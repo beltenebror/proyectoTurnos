@@ -1,114 +1,69 @@
 package org.example.servlets;
 
+import org.example.entities.EstadoTurnos;
+import org.example.entities.Turno;
+import org.example.utils.TurnoJPA;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import org.example.entities.Turno;
-import org.example.entities.Ciudadano;
-import org.example.entities.EstadoTurnos;
-import org.example.utils.*;
-
 
 @WebServlet("/agregarTurno")
 public class AgregarTurnoServlet extends HttpServlet {
-    // creo que esta linea habría que borrarla
-    private EntityManagerFactory emf;
 
     @Override
-    public void init() throws ServletException {
-        emf = Persistence.createEntityManagerFactory("miUnidad");
-    }
-
-    @Override
-    public void destroy() {
-        if (emf != null && emf.isOpen()) {
-            emf.close();
-        }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response)
             throws ServletException, IOException {
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String fechaStr  = request.getParameter("fecha");    // "yyyy-MM-dd"
-        String horaStr   = request.getParameter("hora");     // "HH:mm"
-        String estadoStr = request.getParameter("estado");   // "En espera" o "Atendido"
-        String idCiudadano = request.getParameter("idCiudadano");
-        String descripcion = request.getParameter("descripcion");
 
-        // 1. Parseo de fecha (ISO y fallback corto)
+        String fechaStr       = request.getParameter("fecha");
+        String horaStr        = request.getParameter("hora");
+        String estadoStr      = request.getParameter("estado");
+        String ciudadanoIdStr = request.getParameter("ciudadanoId");
+        String descripcion    = request.getParameter("descripcion");
+
+        Long ciudadanoId;
+        try {
+            ciudadanoId = Long.parseLong(ciudadanoIdStr);
+        } catch (NumberFormatException e) {
+            throw new ServletException("ID de ciudadano inválido", e);
+        }
+
         LocalDate fecha;
         try {
             fecha = LocalDate.parse(fechaStr);
         } catch (DateTimeParseException ex) {
-            DateTimeFormatter altFmt = DateTimeFormatter.ofPattern("d M uuuu");
-            fecha = LocalDate.parse(fechaStr, altFmt);
+            throw new ServletException("Fecha inválida", ex);
         }
 
-        // 2. Parseo de hora
         LocalTime hora;
         try {
             hora = LocalTime.parse(horaStr);
         } catch (DateTimeParseException ex) {
-            throw new ServletException("Formato de hora inválido: " + horaStr, ex);
+            throw new ServletException("Hora inválida", ex);
         }
 
-        // 3. Normalizar estado a enum
-        String norm = estadoStr.trim()
-                .replace(" ", "_")
-                .toUpperCase();    // "En espera" → "EN_ESPERA"
         EstadoTurnos estadoEnum;
         try {
+            String norm = estadoStr.trim().toUpperCase();
             estadoEnum = EstadoTurnos.valueOf(norm);
         } catch (IllegalArgumentException ex) {
             throw new ServletException("Estado inválido: " + estadoStr, ex);
         }
 
-        //codigo pasado a TurnoJPA borrar despues de comprobar
-       /* EntityManager em = emf.createEntityManager();
         try {
-            em.getTransaction().begin();
-
-            Ciudadano ciudadano = em.createQuery("SELECT c FROM Ciudadano c WHERE c.id="+idCiudadano, Ciudadano.class).getSingleResult();
-
-
-            Turno turno = new Turno();
-            turno.setFecha(fecha);
-            turno.setHora(hora);
-            turno.setEstado(estadoEnum);
-            turno.setCiudadano(ciudadano);
-            turno.setCodigo(turno.generarCodigo());
-            turno.setDescripcion(descripcion);
-            em.persist(turno);
-
-            em.getTransaction().commit();*/
-
-        TurnoJPA turnoJPA = new TurnoJPA();
-        EntityManager em = emf.createEntityManager();
-
-        try {
-            Turno turno = TurnoJPA.agregarTurno(fecha, hora, estadoEnum, idCiudadano, descripcion);
+            Turno turno = TurnoJPA.agregarTurno(fecha, hora, estadoEnum, ciudadanoId, descripcion);
             request.setAttribute("turno", turno);
             request.getRequestDispatcher("turnoAgregado.jsp").forward(request, response);
         } catch (Exception e) {
-            if (em.getTransaction().isActive()) em.getTransaction().rollback();
-            throw new ServletException("Error agregando turno", e);
-        } finally {
-            em.close();
+            throw new ServletException("Error al agregar el turno", e);
         }
     }
 }

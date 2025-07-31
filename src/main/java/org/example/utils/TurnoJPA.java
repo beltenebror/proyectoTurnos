@@ -1,66 +1,69 @@
 package org.example.utils;
 
-import jakarta.persistence.*;
+import jakarta.persistence.EntityManager;
 import org.example.entities.Ciudadano;
 import org.example.entities.EstadoTurnos;
 import org.example.entities.Turno;
 
+import javax.servlet.ServletException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class TurnoJPA {
-//    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("miUnidad");
 
-    // Añadimos los Turnos
-    public void agregarTurno(Turno turno){
-        EntityManager em = ConfigJPA.getEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(turno);
-            em.getTransaction().commit();
-        }
-        finally {
-            em.close();
-        }
-    }
-    public Turno atenderTurno(String idTurno){
+    // Método para atender un turno, CORREGIDO para usar Long
+    public Turno atenderTurno(Long idTurno) {
         EntityManager em = ConfigJPA.getEntityManager();
         Turno turno;
         try {
             em.getTransaction().begin();
-            turno = em.find(Turno.class,idTurno);
-            if (turno != null){
+
+            turno = em.find(Turno.class, idTurno); // el ID es Long, no String
+
+            if (turno != null) {
                 turno.setEstado(EstadoTurnos.ATENDIDO);
-                em.persist(turno);
+                // No necesitas em.persist(turno) porque el objeto ya está gestionado
             }
+
             em.getTransaction().commit();
-        }finally {
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        } finally {
             em.close();
         }
         return turno;
     }
 
-    public static Turno agregarTurno(LocalDate fecha, LocalTime hora, EstadoTurnos estado, String idCiudadano, String descripcion){
+    // Método para agregar un nuevo turno, también corregido previamente
+    public static Turno agregarTurno(LocalDate fecha, LocalTime hora, EstadoTurnos estado, Long ciudadanoId, String descripcion) throws ServletException {
         EntityManager em = ConfigJPA.getEntityManager();
         Turno turno = new Turno();
 
         try {
             em.getTransaction().begin();
 
-            Ciudadano ciudadano = em.createQuery("SELECT c FROM Ciudadano c WHERE c.id="+idCiudadano, Ciudadano.class).getSingleResult();
+            Ciudadano ciudadano = em.find(Ciudadano.class, ciudadanoId);
+            if (ciudadano == null) {
+                throw new ServletException("No se encontró ciudadano con ID: " + ciudadanoId);
+            }
 
-//            Turno turno = new Turno();
             turno.setFecha(fecha);
             turno.setHora(hora);
             turno.setEstado(estado);
             turno.setCiudadano(ciudadano);
             turno.setCodigo(turno.generarCodigo());
             turno.setDescripcion(descripcion);
+
             em.persist(turno);
             em.getTransaction().commit();
-    } finally {
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new ServletException("Error al guardar el turno", e);
+        } finally {
             em.close();
         }
+
         return turno;
-        }
+    }
 }

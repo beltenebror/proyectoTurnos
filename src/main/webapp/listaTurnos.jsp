@@ -6,13 +6,18 @@
 <html>
 <head>
     <title>Lista turnos</title>
+    <link rel="stylesheet" href="css/baseCreado.css">
+    <link rel="stylesheet" href="css/botonAtender.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/menu.css">
+
 </head>
 <body>
 <jsp:include page="partials/menu.jsp" />
+
+<div class="content">
+    <div class="box">
 <% String mostrando = (String) request.getAttribute("mostrando");%>
 <h1>Mostrando <%= mostrando %></h1>
-
-
 
     <table border="1">
         <tr>
@@ -42,7 +47,7 @@
             <td>
                 <form action="actualizarEstado" method="get">
                     <input type="hidden" name="idTurno" value="<%=turno.getId()%>">
-                    <input type="submit" value="Atender">
+                    <input type="submit" value="Atender" class="botonAtender">
                 </form>
             </td>
             <%}else{ %>
@@ -56,7 +61,6 @@
         <% } %>
 
     </table>
-
 
 <form action="filtrarTurnos" method="get">
     <h2>Filtrar Turnos</h2>
@@ -76,6 +80,7 @@
 
     <button type="submit">Aplicar Filtros</button>
 </form>
-
+</div>
+</div>
 </body>
 </html>

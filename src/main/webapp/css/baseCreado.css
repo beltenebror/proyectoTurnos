@@ -1,0 +1,110 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-image: url("../imagenes/recepcion-hospital.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding-top: 90px;
+}
+
+.box {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+.box h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.box label,
+.box select,
+.box input {
+  display: block;
+  margin: 8px auto;
+  font-size: 1em;
+  width: 80%;
+}
+
+.box button {
+  margin-top: 1em;
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tabla-datos {
+  border-spacing: 0 12px;
+  width: 100%;
+  border-collapse: separate;
+  margin-bottom: 30px;
+}
+
+.tabla-datos th,
+.tabla-datos td {
+  padding: 12px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+/* Ajuste solo para la columna "Modificar" */
+.tabla-datos th:nth-child(7),
+.tabla-datos td:nth-child(7) {
+  width: 160px;
+}
+
+/* Estilo para el botón dentro de la celda */
+.tabla-datos td:nth-child(7) input[type="submit"] {
+  padding: 6px 12px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.tabla-datos td:nth-child(7) input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Asegura que el formulario no reduzca el botón */
+.tabla-datos td:nth-child(7) form {
+  display: inline-block;
+}

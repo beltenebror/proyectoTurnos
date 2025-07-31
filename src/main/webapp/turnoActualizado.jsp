@@ -1,41 +1,48 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.example.entities.Turno" %>
 
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <title>Turno actualizado</title>
+  <meta charset="UTF-8">
+  <title>Turno actualizado</title>
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/css/baseCreado.css">
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/css/menu.css">
+
 </head>
 <body>
-<jsp:include page="partials/menu.jsp" />
-<h2>Turno atendido y actualizado correctamente</h2>
-<table border="1">
-    <tr>
-        <th>Código</th>
-        <th>Descripción</th>
-        <th>Fecha</th>
-        <th>Hora</th>
-        <th>Estado</th>
-        <th>Ciudadano</th>
-    </tr>
+  <jsp:include page="partials/menu.jsp" />
+
+  <div class="content">
+        <div class="box">
+  <div class="mensaje">
+    <h2>✔ ¡Turno atendido correctamente!</h2>
+
     <%
-    Turno turno = (Turno) request.getAttribute("turnoActualizar");
-    if (turno != null) {
+      Turno turno = (Turno) request.getAttribute("turnoActualizar");
+      if (turno != null) {
     %>
-    <tr>
-        <td><%= turno.getCodigo() %></td>
-        <td><%= turno.getDescripcion() %></td>
-        <td><%= turno.getFecha() %></td>
-        <td><%= turno.getHora() %></td>
-        <td><%= turno.getEstado() %></td>
-        <td><%= turno.getCiudadano().getNombre() %> <%= turno.getCiudadano().getApellidos() %></td>
-    </tr>
+      <p><strong>Código:</strong> <%= turno.getCodigo() %></p>
+      <p><strong>Descripción:</strong> <%= turno.getDescripcion() != null ? turno.getDescripcion() : "—" %></p>
+      <p><strong>Fecha:</strong> <%= turno.getFecha() %></p>
+      <p><strong>Hora:</strong> <%= turno.getHora() %></p>
+      <p><strong>Estado:</strong> <%= turno.getEstado() %></p>
+      <p><strong>Ciudadano:</strong> <%= turno.getCiudadano().getNombre() %> <%= turno.getCiudadano().getApellidos() != null ? turno.getCiudadano().getApellidos() : "" %></p>
     <%
-    } else {
+      } else {
     %>
-    <tr><td colspan="6">No se pudo actualizar el turno.</td></tr>
+      <p>No se pudo actualizar el turno.</p>
     <%
-    }
+      }
     %>
-</table><br>
+
+    <div class="volver">
+      <a href="<%= request.getContextPath() %>/">Volver al inicio</a>
+    </div>
+  </div>
+  </div>
+  </div>
 </body>
 </html>
+
+
