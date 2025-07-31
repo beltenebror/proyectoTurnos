@@ -19,11 +19,12 @@ import java.time.format.DateTimeParseException;
 import org.example.entities.Turno;
 import org.example.entities.Ciudadano;
 import org.example.entities.EstadoTurnos;
+import org.example.utils.*;
 
 
 @WebServlet("/agregarTurno")
 public class AgregarTurnoServlet extends HttpServlet {
-
+    // creo que esta linea habría que borrarla
     private EntityManagerFactory emf;
 
     @Override
@@ -77,7 +78,8 @@ public class AgregarTurnoServlet extends HttpServlet {
             throw new ServletException("Estado inválido: " + estadoStr, ex);
         }
 
-        EntityManager em = emf.createEntityManager();
+        //codigo pasado a TurnoJPA borrar despues de comprobar
+       /* EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
 
@@ -93,11 +95,15 @@ public class AgregarTurnoServlet extends HttpServlet {
             turno.setDescripcion(descripcion);
             em.persist(turno);
 
-            em.getTransaction().commit();
+            em.getTransaction().commit();*/
 
+        TurnoJPA turnoJPA = new TurnoJPA();
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            Turno turno = TurnoJPA.agregarTurno(fecha, hora, estadoEnum, idCiudadano, descripcion);
             request.setAttribute("turno", turno);
             request.getRequestDispatcher("turnoAgregado.jsp").forward(request, response);
-
         } catch (Exception e) {
             if (em.getTransaction().isActive()) em.getTransaction().rollback();
             throw new ServletException("Error agregando turno", e);
