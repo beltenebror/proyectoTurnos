@@ -1,10 +1,9 @@
 .botonAtender {
-  display: inline-block;
+
   padding: 5px 5px;
   background-color: #4d28a7;
   color: white;
-  text-decoration: none;
   border-radius: 5px;
   font-size: 14px;
-  white-space: nowrap;
+  box-sizing : content-box;
 }
