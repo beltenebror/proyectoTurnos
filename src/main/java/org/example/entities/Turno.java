@@ -22,22 +22,23 @@ public class Turno {
 
     @ManyToOne
     private Ciudadano ciudadano;
+    private static Long contador = 100L;
 
     public Turno() {
     }
-
     public Turno(String descripcion, LocalDate fecha,LocalTime hora, EstadoTurnos estado, String codigo) {
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.hora = hora;
         this.estado = estado;
         this.codigo = generarCodigo();
-    }
+        }
 
     public String generarCodigo() {
-        String year = String.valueOf(fecha.getYear());
-        String horaFormateada = hora.format(DateTimeFormatter.ofPattern("HHmmss"));
-        return "T"+year+"-"+horaFormateada;
+        String year = String.valueOf(fecha.getYear()).substring(2);
+        String horaFormateada = LocalTime.now().format(DateTimeFormatter.ofPattern("HHmmss"));
+        String fechaFormateada = LocalDate.now().format(DateTimeFormatter.ofPattern("MMdd"));
+        return "T" + year + "-" + fechaFormateada + "-" + horaFormateada ;
     }
 
     public Long getId() {
