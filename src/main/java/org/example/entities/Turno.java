@@ -38,7 +38,7 @@ public class Turno {
         String year = String.valueOf(fecha.getYear()).substring(2);
         String horaFormateada = LocalTime.now().format(DateTimeFormatter.ofPattern("HHmmss"));
         String fechaFormateada = LocalDate.now().format(DateTimeFormatter.ofPattern("MMdd"));
-        return "T" + year + "-" + fechaFormateada + "-" + horaFormateada ;
+        return "T-" + year + "-" + fechaFormateada + "-" + horaFormateada ;
     }
 
     public Long getId() {

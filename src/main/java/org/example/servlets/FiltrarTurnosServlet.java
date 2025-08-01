@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.example.entities.EstadoTurnos;
@@ -50,6 +51,7 @@ public class FiltrarTurnosServlet extends HttpServlet {
                 .filter(turno -> estadoFiltro == null || turno.getEstado() == estadoFiltro)
                 .filter(turno -> fechaInicio == null || !turno.getFecha().isBefore(fechaInicio))
                 .filter(turno -> fechaFin == null || !turno.getFecha().isAfter(fechaFin))
+                .sorted(Comparator.comparing(Turno::getCodigo))
                 .collect(Collectors.toList());
 
         String mostrando = "turnos filtrados";

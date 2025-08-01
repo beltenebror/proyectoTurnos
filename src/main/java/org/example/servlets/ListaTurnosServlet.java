@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -24,7 +25,9 @@ public class ListaTurnosServlet extends HttpServlet {
         EntityManager em = emf.createEntityManager();
 
         // Consulta sin filtros: obtener todos los turnos
-        List<Turno> listaTurnos = em.createQuery("FROM Turno", Turno.class).getResultList();
+        List<Turno> listaTurnosBurdo = em.createQuery("FROM Turno", Turno.class).getResultList();
+        List<Turno> listaTurnos = listaTurnosBurdo.stream().sorted(Comparator.comparing(Turno::getCodigo)).toList();
+
         String mostrando = "todos los turnos";
 
         req.setAttribute("mostrando", mostrando);
