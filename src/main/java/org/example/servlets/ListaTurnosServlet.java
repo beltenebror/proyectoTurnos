@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 
-
 @WebServlet("/listaTurnos")
 
 public class ListaTurnosServlet extends HttpServlet {
@@ -37,8 +36,4 @@ public class ListaTurnosServlet extends HttpServlet {
         req.getRequestDispatcher("listaTurnos.jsp").forward(req, res);
 
     }
-
-
-
-
 }

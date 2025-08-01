@@ -8,7 +8,6 @@ public class ConfigJPA {
 
     private static final EntityManagerFactory emf =
             Persistence.createEntityManagerFactory("miUnidad");
-
     private ConfigJPA() {}
 
     public static EntityManager getEntityManager() {
