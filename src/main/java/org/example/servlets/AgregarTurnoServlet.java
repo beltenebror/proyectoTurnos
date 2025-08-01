@@ -2,7 +2,7 @@ package org.example.servlets;
 
 import org.example.entities.EstadoTurnos;
 import org.example.entities.Turno;
-import org.example.utils.TurnoJPA;
+import org.example.utils.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

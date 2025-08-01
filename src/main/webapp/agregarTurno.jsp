@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="org.example.entities.Ciudadano" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.time.LocalDate" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,12 +18,33 @@
     <form action="<%= request.getContextPath() %>/agregarTurno" method="post" class="form-box">
       <h2>Nuevo Turno</h2>
 
+      <!-- Solo se pueden generar turnos a partir del día siguiente al que nos encontramos -->
       <label for="fecha">Fecha:
-        <input type="date" id="fecha" name="fecha" required />
+        <%
+          String diaSiguiente = LocalDate.now().plusDays(1).toString();
+        %>
+        <input type="date" id="fecha" name="fecha" required min="<%= diaSiguiente%>">
       </label>
 
+      <!-- dejo este codigo pendiente de borrar
       <label for="hora">Hora:
         <input type="time" id="hora" name="hora" required />
+      </label>-->
+
+      <!-- Solo se pueden generar turnos en horario de 8:30 a 14:00 cada 15 minutos -->
+      <label for="hora">Hora:
+        <select id="hora" name="hora" required>
+          <%
+          java.time.LocalTime inicio = java.time.LocalTime.of(8, 30);
+          java.time.LocalTime fin = java.time.LocalTime.of(14, 0);
+          while (!inicio.isAfter(fin)) {
+          %>
+          <option value="<%= inicio.toString() %>"><%= inicio.toString() %></option>
+          <%
+          inicio = inicio.plusMinutes(15);
+          }
+          %>
+        </select>
       </label>
 
       <label for="estado">Estado:
