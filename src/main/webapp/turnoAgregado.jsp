@@ -12,7 +12,6 @@
 <body>
 <jsp:include page="partials/menu.jsp" />
 
-
   <div class="content">
       <div class="box">
     <div class="recuadro-turno">

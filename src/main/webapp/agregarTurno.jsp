@@ -26,11 +26,6 @@
         <input type="date" id="fecha" name="fecha" required min="<%= diaSiguiente%>">
       </label>
 
-      <!-- dejo este codigo pendiente de borrar
-      <label for="hora">Hora:
-        <input type="time" id="hora" name="hora" required />
-      </label>-->
-
       <!-- Solo se pueden generar turnos en horario de 8:30 a 14:00 cada 15 minutos -->
       <label for="hora">Hora:
         <select id="hora" name="hora" required>
