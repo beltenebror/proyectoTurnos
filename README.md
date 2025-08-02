@@ -1,0 +1,1 @@
+Hemos creado una aplicación de turnos para un centro de salud, la selección de turnos necesita crear un ciudadano para poder asignarle un turno, si no tenemos ningún ciudadano la aplicacón no funciona.
